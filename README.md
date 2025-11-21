@@ -51,8 +51,6 @@ ChatGPT topic summaries
 │   └── raw/
 │       └── Datasetprojpowerbi.csv
 │
-├── models/                # Folder for saving LSA, LDA, BERTopic models
-│
 ├── notebooks/             # Jupyter notebooks with each model experiments
 │   └── bertopic_analysis.ipynb
 │   └── lda_analysis.ipynb
