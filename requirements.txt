@@ -9,5 +9,5 @@ sentence-transformers
 beautifulsoup4
 matplotlib
 wordcloud
-pyLDAvis
-typing
+pyldavis
+typing-extensions
