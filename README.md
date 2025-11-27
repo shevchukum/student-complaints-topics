@@ -52,6 +52,9 @@ Visual analytics (table)
 │   └── lsa_analysis.ipynb
 │
 ├── src/
+│   ├── metrics/
+│   |   └── wetc.py        # WETC calculation
+│   |
 │   ├── preprocessing/     # Cleaning, lemmatization, stopwords
 |   |   └── clean_text.py  
 │   │
