@@ -4,7 +4,7 @@ LSA • LDA • BERTopic
 
 This repository contains a full pipeline for extracting and analyzing topics from a dataset of student complaints.
 The chosen dataset is University Students Complaints & Reports from Kaggle: https://www.kaggle.com/datasets/omarsobhy14/university-students-complaints-and-reports
-The dataset contains 1005 records of complaints sorted manually by 11 categories. The goal of the project is to use NLP techniques to produce a list of most frequently addressed topics.
+The dataset contains 1005 records of complaints. The goal of the project is to use NLP techniques to produce a list of most frequently addressed topics.
 
 The project implements classical and modern topic modeling approaches, provides visualizations, and includes reusable components for preprocessing, vectorization, and modeling.
 
@@ -13,9 +13,7 @@ The project implements classical and modern topic modeling approaches, provides 
 - [Project Pipeline](#project-pipeline)
 - [Repository Structure](#repository-structure)
 - [Topic Modeling Methods](#topic-modeling-methods)
-- [Visualizations](#visualizations)
 - [How to Run](#how-to-run)
-- [Results Example](#results-example)
 - [License](#license)
 
 ## Project Pipeline
@@ -24,32 +22,29 @@ The project implements classical and modern topic modeling approaches, provides 
 
 Text cleaning & lemmatization (nltk, spaCy, re)
 
-N-grams (gensim)
+Bi-grams (gensim)
 
 Vectorization (TF-IDF / BOW)
 
 LSA and LDA (gensim.models)
 
-Visual analytics (frequency histograms, wordcloud) 
+Visual analytics (wordcloud) 
 
-ChatGPT topic summaries  
   
 **_The BERTopic pipeline includes:_**
 
-Textr cleaning (re)
+Text cleaning & lemmatization (nltk, spaCy, re)
 
 BERTopic (bertopic)
 
-Visual analytics (frequency histograms)
+Visual analytics (table)
 
-ChatGPT topic summaries
 
 ## Repository Structure
 <pre>project/
 │
 ├── data/                  # Raw dataset
-│   └── raw/
-│       └── Datasetprojpowerbi.csv
+│   └── Datasetprojpowerbi.csv
 │
 ├── notebooks/             # Jupyter notebooks with each model experiments
 │   └── bertopic_analysis.ipynb
@@ -58,8 +53,7 @@ ChatGPT topic summaries
 │
 ├── src/
 │   ├── preprocessing/     # Cleaning, lemmatization, stopwords
-│   │   └── clean_for_bert.py
-|   |   └── clean_for_lsa_lda.py  
+|   |   └── clean_text.py  
 │   │
 │   ├── vectorization/     # TF-IDF, BoW, Vocabulary
 │   │   └── vecorize_lsa_lda.py
@@ -75,43 +69,14 @@ ChatGPT topic summaries
 | Method   | Vectorization                | Main process                              | Method class    | Speed   |  Quality of Topics
 |----------|------------------------------|-------------------------------------------|-----------------|---------|--------------------
 | LSA      | TF-IDF                       | SVD for the corpus matrix                 | Classic ML      | Fast    |  Medium
-| LDA      | BoW                          | Iterative topic probablity approximation  | Classic ML      | Medium  |  Medium-High
-| BERTopic | all-MiniLM-L6-v2 embeddings  | HDBSCAN docs culstering                   | Deep Learning   | Slow    |  High
-
-
-## Visualizations
-1. Topic Distribution Histogram
-
-Shows how many documents fall into each topic.
-
-2. Word Cloud
-
-Shows word cloud for each topic (only for LSA and LDA).
+| LDA      | BoW                          | Iterative topic probablity approximation  | Classic ML      | Medium  |  Medium
+| BERTopic | SBERT sentence embeddings    | HDBSCAN docs culstering                   | Deep Learning   | Slow    |  High
 
 ## How to Run
 1. Install dependencies
 pip install -r requirements.txt
 
 2. Run notebook with the chosen model
-
-## Results Example
-
-Example BERTopic top-20 words for each topic:  
-
-Topic 0: students, international, language, cultural, sometimes, transportation, housing, campus, learn, rent, opportunities, find, public, options, love, activities, events, community, area, bus
-Topic 1: financial, health, pay, medical, care, expenses, aid, mental, cost, insurance, tuition, debt, college, loan, struggling, ends, money, cover, scholarships, help
-Topic 2: food, options, cafeteria, campus, offer, cantine, available, dining, hall, overpriced, quality, healthy, snacks, served, stale, coffee, vegetarian, prices, vending, machines
-...
-
-Then topic histogram to see most frequent topics and topic top-20 words summaies by ChatGPT:  
-
-Topic 0: Student Life & Campus Environment.  
-
-This topic covers students discussing their life on campus, including housing, transportation, events, and cultural experiences. Concerns include navigating campus facilities and finding opportunities for learning and engagement.  
-
-Key words: students, international, language, cultural, transportation, campus, housing, learn, opportunities, events, class, activities.  
-
-As a result we get the list of topics and their doc frequencies.
 
 ## License
 

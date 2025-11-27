@@ -11,3 +11,5 @@ matplotlib
 wordcloud
 pyldavis
 typing-extensions
+umap
+hdbscan

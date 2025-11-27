@@ -14,13 +14,32 @@ Use example:
 
 from bertopic import BERTopic
 from typing import List, Any
+from umap import UMAP
+from hdbscan import HDBSCAN
+
+umap_model = UMAP(
+    n_neighbors=50,
+    n_components=10,
+    random_state=42,
+    metric="cosine"
+)
+min_topic_size = 10
+hdbscan_model = HDBSCAN(
+  min_cluster_size=min_topic_size, 
+  prediction_data=True,
+  gen_min_span_tree=True
+)
+
 
 def train_bertopic(texts: List[str],
+                    umap_model=umap_model,
+                    hdbscan_model=hdbscan_model,
                     nr_topics: int = None,
-                    min_topic_size: int = 10,
+                    min_topic_size: int = min_topic_size,
                     top_n_words: int = 20,
                     vectorizer: Any = None,
-                    verbose: bool = True) -> BERTopic:
+                    verbose: bool = True,
+                    calculate_probabilities: bool = False) -> BERTopic:
     """
     Train BERTopic model.
     
@@ -29,8 +48,19 @@ def train_bertopic(texts: List[str],
         nr_topics: Number of topics to reduce to. If None, model chooses itself.
         min_topic_size: Minimum number of documents per topic.
         verbose: Show progress bar.
+        calculate_probabilities: True for soft topic labeling
     """
-    model = BERTopic(vectorizer_model=vectorizer, nr_topics=nr_topics, top_n_words=top_n_words, min_topic_size=min_topic_size, verbose=verbose)
+    model = BERTopic(
+      umap_model=umap_model,
+      hdbscan_model=hdbscan_model,
+      vectorizer_model=vectorizer, 
+      nr_topics=nr_topics, 
+      top_n_words=top_n_words, 
+      min_topic_size=min_topic_size, 
+      verbose=verbose, 
+      calculate_probabilities=calculate_probabilities
+    )
+    
     topics, _ = model.fit_transform(texts)
     return model, topics
 
